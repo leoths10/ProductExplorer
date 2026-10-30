@@ -21,7 +21,13 @@ class MainActivity : ComponentActivity() {
         setContent {
             ProductExplorerTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    // Contenu de l'écran
+                    ProductDetailScreen(
+                        product = sampleProduct(),
+                        onAddToCartClick = {
+                            // Action à ajouter plus tard
+                        },
+                        modifier = Modifier.padding(innerPadding)
+                    )
                 }
             }
         }
