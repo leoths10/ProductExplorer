@@ -1,6 +1,7 @@
 package com.example.productexplorer
 
 import android.health.connect.datatypes.units.Percentage
+import android.media.Image
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -16,9 +17,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.productexplorer.ui.theme.ProductExplorerTheme
+import androidx.compose.foundation.Image
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,6 +82,12 @@ fun ProductDetailScreen(
             .fillMaxSize()
             .padding(16.dp)
     ) {
+        ProductImage(
+            productTitle = product.title,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp)
+        )
         ProductHeader(
             title = product.title,
             brand = product.brand,
@@ -155,4 +164,16 @@ fun ProductPriceCard(
             )
         }
     }
+}
+
+@Composable
+fun ProductImage(
+    productTitle: String,
+    modifier: Modifier = Modifier
+) {
+    Image(
+        painter = painterResource(id = android.R.drawable.ic_menu_gallery),
+        contentDescription = "Image du produit $productTitle",
+        modifier = modifier
+    )
 }
