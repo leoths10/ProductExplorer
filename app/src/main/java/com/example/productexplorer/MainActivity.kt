@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.benchmark.traceprocessor.Row
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,6 +23,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.productexplorer.ui.theme.ProductExplorerTheme
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Row
+import androidx.compose.material3.Icon
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -100,6 +105,10 @@ fun ProductDetailScreen(
                 .fillMaxWidth()
                 .padding(top = 16.dp)
         )
+        ProductRating(
+            rating = product.rating,
+            modifier = Modifier.padding(top = 16.dp)
+        )
 
         Text(text = product.description)
 
@@ -176,4 +185,21 @@ fun ProductImage(
         contentDescription = "Image du produit $productTitle",
         modifier = modifier
     )
+}
+
+@Composable
+fun ProductRating(
+    rating: Double,
+    modifier: Modifier = Modifier
+) {
+    Row(modifier = modifier) {
+        Icon(
+            imageVector = Icons.Default.Star,
+            contentDescription = "Note du produit"
+        )
+        Text(
+            text = "$rating / 5",
+            modifier = Modifier.padding(start = 8.dp)
+        )
+    }
 }
