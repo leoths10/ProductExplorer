@@ -88,3 +88,15 @@ fun ProductDetailScreen(
     }
 }
 
+@Preview(showBackground = true)
+@Composable
+fun ProductDetailScreenPreview(){
+
+    ProductExplorerTheme {
+        ProductDetailScreen(
+            product = sampleProduct(),
+            onAddToCartClick = {}
+        )
+    }
+}
+
