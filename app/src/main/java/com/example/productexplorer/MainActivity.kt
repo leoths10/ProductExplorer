@@ -1,5 +1,6 @@
 package com.example.productexplorer
 
+import android.health.connect.datatypes.units.Percentage
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -20,28 +21,21 @@ class MainActivity : ComponentActivity() {
         setContent {
             ProductExplorerTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    // Contenu de l'écran
                 }
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    ProductExplorerTheme {
-        Greeting("Android")
-    }
-}
+data class ProductUi(
+    val title: String,
+    val brand: String,
+    val category: String,
+    val description: String,
+    val discountPercentage: Double,
+    val rating: Double,
+    val stock: Int,
+    val warrantyInformation: String,
+    val shippingInformation: String
+)
