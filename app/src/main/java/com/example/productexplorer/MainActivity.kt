@@ -24,6 +24,8 @@ import androidx.compose.ui.unit.dp
 import com.example.productexplorer.ui.theme.ProductExplorerTheme
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
@@ -335,6 +337,7 @@ fun ProductHomeScreen(
             .padding(16.dp)
     ) {
         HomeHeader()
+        Spacer(modifier = Modifier.height(24.dp))
     }
 }
 
