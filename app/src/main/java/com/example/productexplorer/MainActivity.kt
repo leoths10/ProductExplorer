@@ -3,6 +3,7 @@ package com.example.productexplorer
 import android.health.connect.datatypes.units.Percentage
 import android.media.Image
 import android.os.Bundle
+import android.widget.Space
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -23,11 +24,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.productexplorer.ui.theme.ProductExplorerTheme
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
+import androidx.compose.ui.Alignment
+import com.squareup.wire.WireField
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,10 +43,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             ProductExplorerTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    ProductDetailScreen(
-                        product = sampleProduct(),
-                        onAddToCartClick = {
-                            // Action à ajouter plus tard
+                    ProductHomeScreen(
+                        featuredProduct = sampleProduct(),
+                        onFeaturedProductClick = {
+                            // Plus tard : ouvrir le détail du produit
                         },
                         modifier = Modifier.padding(innerPadding)
                     )
@@ -319,6 +326,221 @@ fun ProductDetailScreenOutOfStockPreview() {
         ProductDetailScreen(
             product = sampleProductOutOfStock(),
             onAddToCartClick = {}
+        )
+    }
+}
+
+@Composable
+fun ProductHomeScreen(
+    featuredProduct: ProductUi,
+    onFeaturedProductClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
+        HomeHeader()
+        Spacer(modifier = Modifier.height(24.dp))
+        SearchPreviewBar()
+        Spacer(modifier = Modifier.height(24.dp))
+        FeaturedProductSection(
+            product = featuredProduct,
+            onClick = onFeaturedProductClick
+        )
+        Spacer(modifier = Modifier.height(24.dp))
+        CategoriesSection()
+        Spacer(modifier = Modifier.height(24.dp))
+        DailyOfferBox()
+    }
+}
+
+@Composable
+fun HomeHeader(
+    modifier: Modifier = Modifier
+) {
+    Column(modifier = modifier) {
+        Text(
+            text = "Product Explorer",
+            style = MaterialTheme.typography.headlineMedium
+        )
+
+        Text(
+            text = "Découvrez les produits du moment",
+            style = MaterialTheme.typography.bodyMedium
+        )
+    }
+}
+
+@Composable
+fun SearchPreviewBar(
+    modifier: Modifier = Modifier
+) {
+    Surface(
+        modifier = modifier.fillMaxWidth(),
+        shape = MaterialTheme.shapes.medium,
+        tonalElevation = 2.dp
+    ) {
+        Text(
+            text = "Rechercher un produit ...",
+            modifier = Modifier.padding(16.dp),
+            style = MaterialTheme.typography.bodyMedium
+        )
+    }
+}
+
+@Composable
+fun FeaturedProductSection(
+    product: ProductUi,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Surface(
+        modifier = modifier.fillMaxWidth(),
+        shape = MaterialTheme.shapes.large,
+        tonalElevation = 4.dp
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp)
+        ) {
+            Text(
+                text = "Produit mis en avant",
+                style = MaterialTheme.typography.titleMedium
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+            Text(
+                text = product.title,
+                style = MaterialTheme.typography.headlineSmall
+            )
+            Text(
+                text = product.brand,
+                style = MaterialTheme.typography.bodyMedium
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+            Button(onClick = onClick) {
+                Text(text = "Voir le produit")
+            }
+            ProductQuickInfoRow(
+                price = product.price,
+                rating = product.rating,
+                stock = product.stock
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+
+        }
+    }
+}
+
+@Composable
+fun ProductQuickInfoRow(
+    price: Double,
+    rating: Double,
+    stock: Int,
+    modifier: Modifier = Modifier
+) {
+    Row(modifier = modifier.fillMaxWidth()) {
+        Text(
+            text = "$price €",
+            modifier = Modifier.weight(1f)
+        )
+        Text(
+            text = "* $rating",
+            modifier = Modifier.weight(1f)
+        )
+        Text(
+            text = "$stock en stock",
+            modifier = Modifier.weight(1f)
+        )
+    }
+}
+
+@Composable
+fun CategoryChip(
+    label: String,
+    modifier: Modifier = Modifier
+) {
+    Surface(
+        modifier = modifier,
+        shape = MaterialTheme.shapes.medium,
+        tonalElevation = 2.dp
+    ) {
+        Text(
+            text = label,
+            modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
+            style = MaterialTheme.typography.bodyMedium
+        )
+    }
+}
+
+@Composable
+fun CategoriesSection(
+    modifier: Modifier = Modifier
+) {
+    Column(modifier = modifier) {
+        Text(
+            text = "Catégories",
+            style = MaterialTheme.typography.titleMedium
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Row {
+            CategoryChip(label = "Smartphones")
+            Spacer(modifier = Modifier.weight(1f))
+            CategoryChip(label = "Audio")
+            Spacer(modifier = Modifier.weight(1f))
+            CategoryChip(label = "Maison")
+        }
+    }
+}
+
+@Composable
+fun DailyOfferBox(
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = modifier.fillMaxWidth()
+    ) {
+        Surface(
+            modifier = Modifier.fillMaxWidth(),
+            shape = MaterialTheme.shapes.large,
+            tonalElevation = 2.dp
+        ) {
+            Column(
+                modifier = Modifier.padding(16.dp)
+            ) {
+                Text(
+                    text = "Offre du jour",
+                    style = MaterialTheme.typography.titleMedium
+                )
+                Text(
+                    text = "Jusqu'à -20 % sur une sélection de produits",
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
+        }
+        Surface(
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .padding(8.dp),
+            shape = MaterialTheme.shapes.small,
+            tonalElevation = 6.dp
+        ) {
+            Text(
+                text = "Nouveau",
+                modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                style = MaterialTheme.typography.labelMedium
+            )
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ProductHomeScreenPreview(){
+    ProductExplorerTheme {
+        ProductHomeScreen(
+            featuredProduct = sampleProduct(),
+            onFeaturedProductClick = {},
         )
     }
 }
