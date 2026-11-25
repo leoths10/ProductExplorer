@@ -38,6 +38,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Alignment
 import com.squareup.wire.WireField
+import androidx.compose.foundation.lazy.items
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -613,6 +614,18 @@ fun ProductCatalogScreen(
             Text(
                 text = "Catalogue produits",
                 style = MaterialTheme.typography.headlineMedium
+            )
+        }
+
+        items(
+            items = products,
+            key = { product -> product.id }
+        ) { product ->
+            ProductListItem(
+                product = product,
+                onClick = {
+                    onProductClick(product)
+                }
             )
         }
     }
