@@ -727,3 +727,16 @@ fun ProductCatalogScreenDarkPreview(){
     }
 }
 
+@Preview(
+    showBackground = true,
+    name = "Catalogue - Light Theme"
+)
+@Composable
+fun ProductCatalogScreenLightPreview(){
+    ProductExplorerTheme(darkTheme = false) {
+        ProductCatalogScreen(
+            products = sampleProducts(),
+            onProductClick = {}
+        )
+    }
+}
