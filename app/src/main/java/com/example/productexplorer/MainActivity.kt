@@ -49,10 +49,8 @@ class MainActivity : ComponentActivity() {
             ProductExplorerTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     ProductCatalogScreen(
-                        products = sampleProduct(),
-                        onProduitClick = {
-                            // Plus tard : ouvrir le détail du produit
-                        },
+                        products = sampleProducts(),
+                        onProductClick = {},
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -688,5 +686,16 @@ fun CategoryRow(
         item {
             CategoryRow(categories = sampleCategories())
         }
+    }
+}
+
+@Preview
+@Composable
+fun ProductCatalogScreenPreview(){
+    ProductExplorerTheme {
+        ProductCatalogScreen(
+            products = sampleProducts(),
+            onProductClick = {}
+        )
     }
 }
