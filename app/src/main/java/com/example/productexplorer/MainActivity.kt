@@ -41,6 +41,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Alignment
 import com.squareup.wire.WireField
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.CardDefaults
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -619,7 +620,6 @@ fun ProductCatalogScreen(
                 color = MaterialTheme.colorScheme.primary
             )
         }
-
         items(
             items = products,
             key = { product -> product.id }
@@ -640,10 +640,16 @@ fun ProductListItem(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Card(modifier = modifier.fillMaxWidth()) {
-        Column(
-            modifier = Modifier.padding(16.dp)
-        ) {
+    Card(
+        modifier = modifier.fillMaxWidth(),
+        shape = MaterialTheme.shapes.large,
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface
+        ),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 3.dp
+        )
+    ) {
             Text(
                 text = product.title,
                 style = MaterialTheme.typography.titleMedium
