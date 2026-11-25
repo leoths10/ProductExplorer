@@ -30,6 +30,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -338,6 +339,8 @@ fun ProductHomeScreen(
     ) {
         HomeHeader()
         Spacer(modifier = Modifier.height(24.dp))
+        SearchPreviewBar()
+        Spacer(modifier = Modifier.height(24.dp))
     }
 }
 
@@ -353,6 +356,23 @@ fun HomeHeader(
 
         Text(
             text = "Découvrez les produits du moment",
+            style = MaterialTheme.typography.bodyMedium
+        )
+    }
+}
+
+@Composable
+fun SearchPreviewBar(
+    modifier: Modifier = Modifier
+) {
+    Surface(
+        modifier = modifier.fillMaxWidth(),
+        shape = MaterialTheme.shapes.medium,
+        tonalElevation = 2.dp
+    ) {
+        Text(
+            text = "Rechercher un produit ...",
+            modifier = Modifier.padding(16.dp),
             style = MaterialTheme.typography.bodyMedium
         )
     }
