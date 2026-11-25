@@ -47,7 +47,7 @@ class MainActivity : ComponentActivity() {
                         featuredProduct = sampleProduct(),
                         onFeaturedProductClick = {
                             // Plus tard : ouvrir le détail du produit
-                        }
+                        },
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -531,5 +531,16 @@ fun DailyOfferBox(
                 style = MaterialTheme.typography.labelMedium
             )
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ProductHomeScreenPreview(){
+    ProductExplorerTheme {
+        ProductHomeScreen(
+            featuredProduct = sampleProduct(),
+            onFeaturedProductClick = {},
+        )
     }
 }
