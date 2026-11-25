@@ -3,6 +3,7 @@ package com.example.productexplorer
 import android.health.connect.datatypes.units.Percentage
 import android.media.Image
 import android.os.Bundle
+import android.widget.Space
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -414,6 +415,35 @@ fun FeaturedProductSection(
             Button(onClick = onClick) {
                 Text(text = "Voir le produit")
             }
+            ProductQuickInfoRow(
+                price = product.price,
+                rating = product.rating,
+                stock = product.stock
+            )
+            Spacer(modifier = Modifier.height(12.dp))
         }
+    }
+}
+
+@Composable
+fun ProductQuickInfoRow(
+    price: Double,
+    rating: Double,
+    stock: Int,
+    modifier: Modifier = Modifier
+) {
+    Row(modifier = modifier.fillMaxWidth()) {
+        Text(
+            text = "$price €",
+            modifier = Modifier.weight(1f)
+        )
+        Text(
+            text = "* $rating",
+            modifier = Modifier.weight(1f)
+        )
+        Text(
+            text = "$stock en stock",
+            modifier = Modifier.weight(1f)
+        )
     }
 }
