@@ -322,3 +322,26 @@ fun ProductDetailScreenOutOfStockPreview() {
         )
     }
 }
+
+@Composable
+fun ProductHomeScreen(
+    featuredProduct: ProductUi,
+    OnFeaturedProductClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
+        Text(
+            text = "Product Explorer",
+            style = MaterialTheme.typography.headlineMedium
+        )
+        Text(
+            text = "Découvrez les produits du moment",
+            style = MaterialTheme.typography.bodyMedium
+        )
+    }
+}
+
