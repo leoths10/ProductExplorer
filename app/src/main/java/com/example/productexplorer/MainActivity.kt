@@ -679,6 +679,8 @@ fun CategoryRow(
         items(categories) { category ->
             CategoryChip(label = category)
         }
+        item {
+            CategoryRow(categories = sampleCategories())
+        }
     }
 }
-
