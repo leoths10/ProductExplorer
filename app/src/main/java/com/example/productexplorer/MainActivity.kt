@@ -652,16 +652,19 @@ fun ProductListItem(
     ) {
             Text(
                 text = product.title,
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.onSurface
             )
             Text(
                 text = product.brand,
-                style = MaterialTheme.typography.bodyMedium
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.secondary
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = "${product.price} € • ★ ${product.rating}",
-                style = MaterialTheme.typography.bodyMedium
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.primary
             )
             Spacer(modifier = Modifier.height(8.dp))
             Button(onClick = onClick) {
@@ -669,7 +672,6 @@ fun ProductListItem(
             }
         }
     }
-}
 
 fun sampleCategories(): List<String>{
     return listOf("Smartphones", "Audio", "Wearables", "Maison")
