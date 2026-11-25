@@ -36,11 +36,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             ProductExplorerTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    ProductDetailScreen(
-                        product = sampleProduct(),
-                        onAddToCartClick = {
-                            // Action à ajouter plus tard
-                        },
+                    ProductHomeScreen(
+                        featuredProduct = sampleProduct(),
+                        onFeaturedProductClick = {
+                            // Plus tard : ouvrir le détail du produit
+                        }
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
