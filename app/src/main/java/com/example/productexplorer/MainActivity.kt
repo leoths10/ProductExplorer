@@ -46,6 +46,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import androidx.compose.runtime.collectAsState
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -762,14 +763,16 @@ fun ProductCatalogContainer(
     modifier: Modifier = Modifier,
     viewModel: ProductCatalogViewModel = viewModel()
 ) {
+    val uiState by viewModel.uiState.collectAsState()
+
     ProductCatalogScreen(
-        products = viewModel.filteredProducts,
-        categories = viewModel.categories,
-        searchQuery = viewModel.searchQuery ,
+        products = uiState.products,
+        categories = uiState.categories,
+        searchQuery = uiState.searchQuery,
         onSearchQueryChange = viewModel::onSearchQueryChange,
-        showOnlyInStock = viewModel.showOnlyInStock,
+        showOnlyInStock = uiState.showOnlyInStock,
         onToggleStockFilter = viewModel::onToggleStockFilter,
-        favoriteProductIds= viewModel.favoriteProductIds,
+        favoriteProductIds = uiState.favoriteProductIds,
         onFavoriteClick = viewModel::onFavoriteClick,
         onProductClick = onProductClick,
         modifier = modifier
