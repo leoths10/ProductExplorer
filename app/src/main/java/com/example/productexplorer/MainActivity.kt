@@ -779,18 +779,6 @@ fun ProductCatalogContainer(
     )
 }
 
-@Preview(showBackground = true)
-@Composable
-fun ProductCatalogContainerPreview() {
-    ProductExplorerTheme {
-        ProductCatalogContainer(
-            products = sampleProducts(),
-            categories = sampleCategories(),
-            onProductClick = {}
-        )
-    }
-}
-
 @Preview(
     showBackground = true,
     name = "Catalogue - Light Theme"
