@@ -854,4 +854,11 @@ fun ProductCatalogContainer(
             matchesSearch && matchesStock
         }
     }
+    fun toggleFavorite(productId: Int){
+        favoriteProductsIds = if (favoriteProductsIds.contains(productId)){
+            favoriteProductsIds - productId
+        } else {
+            favoriteProductsIds + productId
+        }
+    }
 }
