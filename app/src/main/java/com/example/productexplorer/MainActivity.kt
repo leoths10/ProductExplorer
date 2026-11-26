@@ -896,7 +896,17 @@ class ProductCatalogViewModel : ViewModel(){
         }
 
     fun onToggleStockFilter(){
-        showOnlyInStock = !showOnlyInStock
+        _uiState.update{ currentState ->
+            val newShowOnlyInStock = !currentState.showOnlyInStock
+
+            currentState.copy(
+                showOnlyInStock = newShowOnlyInStock,
+                products = filterProducts(
+                    searchQuery = currentState.searchQuery,
+                    showOnlyInStock = newShowOnlyInStock
+                )
+            )
+        }
     }
 
     fun onFavoriteClick(productId: Int){
