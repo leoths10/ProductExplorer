@@ -3,6 +3,7 @@ package com.example.productexplorer
 import android.health.connect.datatypes.units.Percentage
 import android.media.Image
 import android.os.Bundle
+import android.widget.Button
 import android.widget.Space
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -649,6 +650,21 @@ fun ProductCatalogScreen(
                 },
                 modifier = Modifier.fillMaxWidth()
             )
+        }
+        item {
+            Button(
+                onClick = {
+                    showOnlyInStock = !showOnlyInStock
+                }
+            ) {
+                Text(
+                    text = if (showOnlyInStock) {
+                        "Afficher tous les produits"
+                    } else{
+                        "Afficher uniquement les produits en stock"
+                    }
+                )
+            }
         }
         item {
             Text(
