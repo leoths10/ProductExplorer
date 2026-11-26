@@ -48,6 +48,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.lifecycle.ViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -877,3 +878,8 @@ fun ProductCatalogScreenStatelessPreview() {
         )
     }
 }
+
+class ProductCatalogViewModel : ViewModel(){
+
+}
+
