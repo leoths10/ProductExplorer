@@ -754,7 +754,7 @@ fun CategoryRow(
             )
         }
         item {
-            CategoryRow(categories = sampleCategories())
+            CategoryRow(categories = categories)
         }
     }
 }
