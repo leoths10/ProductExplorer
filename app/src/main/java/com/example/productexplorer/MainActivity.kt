@@ -617,6 +617,9 @@ fun ProductCatalogScreen(
     var showOnlyInStock by rememberSaveable {
         mutableStateOf(false)
     }
+    var favoriteProductIds by rememberSaveable {
+        mutableStateOf(listOf<Int>())
+    }
     val filteredProducts = remember(products, searchQuery, showOnlyInStock) {
         products.filter { product ->
             val matchesSearch =
