@@ -797,11 +797,17 @@ fun ProductCatalogContainerPreview() {
     name = "Catalogue - Light Theme"
 )
 @Composable
-fun ProductCatalogContainerLightPreview() {
+fun ProductCatalogScreenLightPreview() {
     ProductExplorerTheme(darkTheme = false) {
-        ProductCatalogContainer(
+        ProductCatalogScreen(
             products = sampleProducts(),
             categories = sampleCategories(),
+            searchQuery = "",
+            onSearchQueryChange = {},
+            showOnlyInStock = false,
+            onToggleStockFilter = {},
+            favoriteProductIds = listOf(1),
+            onFavoriteClick = {},
             onProductClick = {}
         )
     }
@@ -812,16 +818,21 @@ fun ProductCatalogContainerLightPreview() {
     name = "Catalogue - Dark Theme"
 )
 @Composable
-fun ProductCatalogContainerDarkPreview() {
+fun ProductCatalogScreenDarkPreview() {
     ProductExplorerTheme(darkTheme = true) {
-        ProductCatalogContainer(
+        ProductCatalogScreen(
             products = sampleProducts(),
             categories = sampleCategories(),
+            searchQuery = "audio",
+            onSearchQueryChange = {},
+            showOnlyInStock = true,
+            onToggleStockFilter = {},
+            favoriteProductIds = listOf(2),
+            onFavoriteClick = {},
             onProductClick = {}
         )
     }
 }
-
 @Preview(showBackground = true)
 @Composable
 fun ProductCatalogScreenStatelessPreview() {
