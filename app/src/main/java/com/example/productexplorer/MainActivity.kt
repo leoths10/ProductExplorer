@@ -3,6 +3,7 @@ package com.example.productexplorer
 import android.health.connect.datatypes.units.Percentage
 import android.media.Image
 import android.os.Bundle
+import android.widget.Button
 import android.widget.Space
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -42,6 +43,11 @@ import androidx.compose.ui.Alignment
 import com.squareup.wire.WireField
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CardDefaults
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -605,6 +611,35 @@ fun ProductCatalogScreen(
     onProductClick: (ProductUi) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    var searchQuery by rememberSaveable {
+        mutableStateOf("")
+    }
+    var showOnlyInStock by rememberSaveable {
+        mutableStateOf(false)
+    }
+    var favoriteProductIds by rememberSaveable {
+        mutableStateOf(listOf<Int>())
+    }
+    val filteredProducts = remember(products, searchQuery, showOnlyInStock) {
+        products.filter { product ->
+            val matchesSearch =
+                product.title.contains(searchQuery, ignoreCase = true) ||
+                        product.brand.contains(searchQuery, ignoreCase = true) ||
+                        product.category.contains(searchQuery, ignoreCase = true)
+
+            val matchesStock =
+                !showOnlyInStock || product.stock > 0
+
+            matchesSearch && matchesStock
+        }
+    }
+    fun toggleFavorite(productId: Int){
+        favoriteProductIds = if (favoriteProductIds.contains(productId)){
+            favoriteProductIds
+        } else {
+            favoriteProductIds + productId
+        }
+    }
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
@@ -615,6 +650,39 @@ fun ProductCatalogScreen(
             // Ajoute un espace vertical entre les éléments de la liste
     ) {
         item {
+            OutlinedTextField(
+                value = searchQuery,
+                onValueChange = { newValue ->
+                    searchQuery = newValue
+                },
+                label = {
+                    Text(text = "Rechercher un produit")
+                },
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+        item {
+            Button(
+                onClick = {
+                    showOnlyInStock = !showOnlyInStock
+                }
+            ) {
+                Text(
+                    text = if (showOnlyInStock) {
+                        "Afficher tous les produits"
+                    } else{
+                        "Afficher uniquement les produits en stock"
+                    }
+                )
+            }
+        }
+        item {
+            Text(
+                text = "${filteredProducts.size} produit(s) affiché(s)",
+                style = MaterialTheme.typography.bodyMedium
+            )
+        }
+        item {
             Text(
                 text = "Catalogue produits",
                 style = MaterialTheme.typography.headlineMedium,
@@ -622,11 +690,15 @@ fun ProductCatalogScreen(
             )
         }
         items(
-            items = products,
+            items = filteredProducts,
             key = { product -> product.id }
         ) { product ->
             ProductListItem(
                 product = product,
+                isFavorite = favoriteProductIds.contains(product.id),
+                onFavoriteClick = {
+                    toggleFavorite(product.id)
+                },
                 onClick = {
                     onProductClick(product)
                 }
@@ -638,6 +710,8 @@ fun ProductCatalogScreen(
 @Composable
 fun ProductListItem(
     product: ProductUi,
+    isFavorite: Boolean,
+    onFavoriteClick: () -> Unit,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -667,6 +741,15 @@ fun ProductListItem(
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.primary
             )
+        Button(onClick = onFavoriteClick){
+            Text(
+                text = if (isFavorite) {
+                    "Retirer des favoris"
+                } else{
+                    "Ajouter aux favoris"
+                }
+            )
+        }
             Spacer(modifier = Modifier.height(8.dp))
             Button(onClick = onClick) {
                 Text(text = "Voir le produit")
