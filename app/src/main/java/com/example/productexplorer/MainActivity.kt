@@ -780,7 +780,7 @@ fun ProductCatalogContainer(
     val filteredProducts = remember(products, searchQuery, showOnlyInStock){
         products.filter { product ->
             val matchesSearch =
-                product.title.contains((searchQuery, ignoreCase = true) ||
+                product.title.contains(searchQuery, ignoreCase = true) ||
                 product.brand.contains(searchQuery, ignoreCase = true) ||
                 product.category.contains(searchQuery, ignoreCase = true)
 
