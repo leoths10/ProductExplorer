@@ -45,6 +45,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 
 class MainActivity : ComponentActivity() {
@@ -611,6 +612,13 @@ fun ProductCatalogScreen(
 ) {
     var searchQuery by rememberSaveable {
         mutableStateOf("")
+    }
+    val filteredProducts = remember(products, searchQuery) {
+        products.filter { product ->
+            product.title.contains(searchQuery, ignoreCase = true) ||
+                    product.brand.contains(searchQuery, ignoreCase = true) ||
+                    product.category.contains(searchQuery, ignoreCase = true)
+        }
     }
     LazyColumn(
         modifier = modifier
