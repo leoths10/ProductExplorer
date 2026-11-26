@@ -823,3 +823,21 @@ fun ProductCatalogScreenLightPreview(){
         )
     }
 }
+
+@Composable
+fun ProductCatalogContainer(
+    products: List<ProductUi>,
+    categories: List<String>,
+    onProductClick: (ProductUi) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    var searchQuery by rememberSaveable {
+        mutableStateOf("")
+    }
+    var showOnlyInStock by rememberSaveable {
+        mutableStateOf(false)
+    }
+    var favoriteProductsIds by rememberSaveable {
+        mutableStateOf(listOf<Int>())
+    }
+}
