@@ -838,7 +838,7 @@ fun ProductCatalogScreenStatelessPreview() {
     }
 }
 
-class ProductCatalogViewModel : ViewModel(){
+class ProductCatalogViewModel : ViewModel() {
     private val allProducts: List<ProductUi> = sampleProducts()
     private val allCategories: List<String> = sampleCategories()
 
@@ -850,44 +850,9 @@ class ProductCatalogViewModel : ViewModel(){
     )
 
     val uiState: StateFlow<ProductCatalogUiState> = _uiState.asStateFlow()
-    val categories: List<String> = sampleCategories()
 
-    var searchQuery by mutableStateOf("")
-        private set
-
-    fun onSearchQueryChange(newValue: String){
+    fun onToggleStockFilter() {
         _uiState.update { currentState ->
-            currentState.copy(
-                searchQuery = newValue,
-                products = filterProducts(
-                    searchQuery = newValue,
-                    showOnlyInStock = currentState.showOnlyInStock
-                )
-            )
-        }
-    }
-
-    var showOnlyInStock by mutableStateOf(false)
-        private set
-
-    var favoriteProductIds by mutableStateOf(listOf<Int>())
-        private set
-
-    val filteredProducts: List<ProductUi>
-        get() = allProducts.filter { product ->
-            val matchesSearch =
-                product.title.contains(searchQuery, ignoreCase = true) ||
-                        product.brand.contains(searchQuery, ignoreCase = true) ||
-                        product.category.contains(searchQuery, ignoreCase = true)
-
-            val matchesStock =
-                !showOnlyInStock || product.stock > 0
-
-            matchesSearch && matchesStock
-        }
-
-    fun onToggleStockFilter(){
-        _uiState.update{ currentState ->
             val newShowOnlyInStock = !currentState.showOnlyInStock
 
             currentState.copy(
@@ -915,7 +880,7 @@ class ProductCatalogViewModel : ViewModel(){
         }
     }
 
-    private fun filterProducts(searchQuery: String, showOnlyInStock: Boolean): List<ProductUi>{
+    private fun filterProducts(searchQuery: String, showOnlyInStock: Boolean): List<ProductUi> {
         return allProducts.filter { product ->
             val matchesSearch =
                 product.title.contains(searchQuery, ignoreCase = true) ||
@@ -926,15 +891,27 @@ class ProductCatalogViewModel : ViewModel(){
             matchesSearch && matchesStock
         }
     }
-}
 
-data class ProductCatalogUiState(
-    val products: List<ProductUi> = emptyList(),
-    val categories: List<String> = emptyList(),
-    val searchQuery: String = "",
-    val showOnlyInStock: Boolean = false,
-    val favoriteProductIds: List<Int> = emptyList()
-)
+    fun onSearchQueryChange(newValue: String) {
+        _uiState.update { currentState ->
+            currentState.copy(
+                searchQuery = newValue,
+                products = filterProducts(
+                    searchQuery = newValue,
+                    showOnlyInStock = currentState.showOnlyInStock
+                )
+            )
+        }
+    }
+
+    data class ProductCatalogUiState(
+        val products: List<ProductUi> = emptyList(),
+        val categories: List<String> = emptyList(),
+        val searchQuery: String = "",
+        val showOnlyInStock: Boolean = false,
+        val favoriteProductIds: List<Int> = emptyList()
+    )
+}
 
 
 
