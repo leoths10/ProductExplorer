@@ -695,6 +695,10 @@ fun ProductCatalogScreen(
         ) { product ->
             ProductListItem(
                 product = product,
+                isFavorite = favoriteProductIds.contains(product.id),
+                onFavoriteClick = {
+                    toggleFavorite(product.id)
+                },
                 onClick = {
                     onProductClick(product)
                 }
