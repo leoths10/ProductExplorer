@@ -892,18 +892,9 @@ class ProductCatalogViewModel : ViewModel(){
 
     var showOnlyInStock by mutableStateOf(false)
         private set
-    fun onToggleStockFilter(){
-        showOnlyInStock = !showOnlyInStock
-    }
+
     var favoriteProductIds by mutableStateOf(listOf<Int>())
         private set
-    fun onFavoriteClick(productId: Int){
-        favoriteProductIds = if (favoriteProductIds.contains(productId)) {
-            favoriteProductIds - productId
-        } else{
-            favoriteProductIds + productId
-        }
-    }
 
     val filteredProducts: List<ProductUi>
         get() = allProducts.filter { product ->
@@ -917,5 +908,18 @@ class ProductCatalogViewModel : ViewModel(){
 
             matchesSearch && matchesStock
         }
+
+    fun onToggleStockFilter(){
+        showOnlyInStock = !showOnlyInStock
+    }
+
+    fun onFavoriteClick(productId: Int){
+        favoriteProductIds = if (favoriteProductIds.contains(productId)) {
+            favoriteProductIds - productId
+        } else{
+            favoriteProductIds + productId
+        }
+    }
+
 }
 
