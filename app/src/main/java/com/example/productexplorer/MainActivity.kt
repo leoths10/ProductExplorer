@@ -890,5 +890,16 @@ class ProductCatalogViewModel : ViewModel(){
         searchQuery = newValue
     }
 
+    var favoriteProductIds by mutableStateOf(listOf<Int>())
+        private set
+    fun onFavoriteClick(productId: Int){
+        favoriteProductIds = if (favoriteProductIds.contains(productId)) {
+            favoriteProductIds - productId
+        } else{
+            favoriteProductIds + productId
+        }
+    }
+
+
 }
 
