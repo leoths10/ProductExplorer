@@ -897,6 +897,18 @@ class ProductCatalogViewModel : ViewModel(){
             favoriteProductIds + productId
         }
     }
+
+    private fun filterProducts(searchQuery: String, showOnlyInStock: Boolean): List<ProductUi>{
+        return allProducts.filter { product ->
+            val matchesSearch =
+                product.title.contains(searchQuery, ignoreCase = true) ||
+                        product.brand.contains(searchQuery, ignoreCase = true) ||
+                        product.category.contains(searchQuery, ignoreCase = true)
+            val matchesStock =
+                !showOnlyInStock || product.stock > 0
+            matchesSearch && matchesStock
+        }
+    }
 }
 
 data class ProductCatalogUiState(
