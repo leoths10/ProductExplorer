@@ -760,45 +760,6 @@ fun CategoryRow(
     }
 }
 
-@Preview
-@Composable
-fun ProductCatalogScreenPreview(){
-    ProductExplorerTheme {
-        ProductCatalogScreen(
-            products = sampleProducts(),
-            onProductClick = {}
-        )
-    }
-}
-
-@Preview(
-    showBackground = true,
-    name = "Catalogue - Dark Theme"
-)
-@Composable
-fun ProductCatalogScreenDarkPreview(){
-    ProductExplorerTheme(darkTheme = true) {
-        ProductCatalogScreen(
-            products = sampleProducts(),
-            onProductClick = {}
-        )
-    }
-}
-
-@Preview(
-    showBackground = true,
-    name = "Catalogue - Light Theme"
-)
-@Composable
-fun ProductCatalogScreenLightPreview(){
-    ProductExplorerTheme(darkTheme = false) {
-        ProductCatalogScreen(
-            products = sampleProducts(),
-            onProductClick = {}
-        )
-    }
-}
-
 @Composable
 fun ProductCatalogContainer(
     products: List<ProductUi>,
@@ -855,4 +816,64 @@ fun ProductCatalogContainer(
         onProductClick = onProductClick,
         modifier = modifier
     )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ProductCatalogContainerPreview() {
+    ProductExplorerTheme {
+        ProductCatalogContainer(
+            products = sampleProducts(),
+            categories = sampleCategories(),
+            onProductClick = {}
+        )
+    }
+}
+
+@Preview(
+    showBackground = true,
+    name = "Catalogue - Light Theme"
+)
+@Composable
+fun ProductCatalogContainerLightPreview() {
+    ProductExplorerTheme(darkTheme = false) {
+        ProductCatalogContainer(
+            products = sampleProducts(),
+            categories = sampleCategories(),
+            onProductClick = {}
+        )
+    }
+}
+
+@Preview(
+    showBackground = true,
+    name = "Catalogue - Dark Theme"
+)
+@Composable
+fun ProductCatalogContainerDarkPreview() {
+    ProductExplorerTheme(darkTheme = true) {
+        ProductCatalogContainer(
+            products = sampleProducts(),
+            categories = sampleCategories(),
+            onProductClick = {}
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ProductCatalogScreenStatelessPreview() {
+    ProductExplorerTheme {
+        ProductCatalogScreen(
+            products = sampleProducts(),
+            categories = sampleCategories(),
+            searchQuery = "",
+            onSearchQueryChange = {},
+            showOnlyInStock = false,
+            onToggleStockFilter = {},
+            favoriteProductIds = listOf(1),
+            onFavoriteClick = {},
+            onProductClick = {}
+        )
+    }
 }
