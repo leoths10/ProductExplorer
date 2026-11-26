@@ -622,6 +622,18 @@ fun ProductCatalogScreen(
             // Ajoute un espace vertical entre les éléments de la liste
     ) {
         item {
+            OutlinedTextField(
+                value = searchQuery,
+                onValueChange = { newValue ->
+                    searchQuery = newValue
+                },
+                label = {
+                    Text(text = "Rechercher un produit")
+                },
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+        item {
             Text(
                 text = "Catalogue produits",
                 style = MaterialTheme.typography.headlineMedium,
