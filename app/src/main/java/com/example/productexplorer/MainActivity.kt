@@ -668,6 +668,12 @@ fun ProductCatalogScreen(
         }
         item {
             Text(
+                text = "${filteredProducts.size} produit(s) affiché(s)",
+                style = MaterialTheme.typography.bodyMedium
+            )
+        }
+        item {
+            Text(
                 text = "Catalogue produits",
                 style = MaterialTheme.typography.headlineMedium,
                 color = MaterialTheme.colorScheme.primary
