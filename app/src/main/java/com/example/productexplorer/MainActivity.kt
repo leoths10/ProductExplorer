@@ -42,6 +42,9 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.productexplorer.ui.theme.ProductExplorerTheme
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -845,6 +848,16 @@ fun ProductCatalogScreenStatelessPreview() {
 
 class ProductCatalogViewModel : ViewModel(){
     private val allProducts: List<ProductUi> = sampleProducts()
+    private val allCategories: List<String> = sampleCategories()
+
+    private val _uiState = MutableStateFlow(
+        ProductCatalogUiState(
+            products = allProducts,
+            categories = allCategories
+        )
+    )
+
+    val uiState: StateFlow<ProductCatalogUiState> = _uiState.asStateFlow()
     val categories: List<String> = sampleCategories()
 
     var searchQuery by mutableStateOf("")
@@ -893,5 +906,6 @@ data class ProductCatalogUiState(
     val showOnlyInStock: Boolean = false,
     val favoriteProductIds: List<Int> = emptyList()
 )
+
 
 
